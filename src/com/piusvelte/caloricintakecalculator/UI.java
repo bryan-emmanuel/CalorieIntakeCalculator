@@ -131,16 +131,16 @@ public class UI extends Activity implements OnClickListener {
 			}
 			value = mFld_weight.getText().toString();
 			if ((value != null) && (value.length() > 0)) {
-				weight = Double.parseDouble(value);
+				weight = Double.parseDouble(value) / mWeight_conversion;
 			}
 			value = mFld_height.getText().toString();
 			if ((value != null) && (value.length() > 0)) {
-				height = Double.parseDouble(value);
+				height = Double.parseDouble(value) / mHeight_conversion;
 			}
 			if (mGender.equals("M")) {
-				bmr = Math.round(66 + (13.7 * (weight / mWeight_conversion)) + (5 * (height * mHeight_conversion)) - (6.8 * age));
+				bmr = Math.round(66 + (13.7 * weight) + (5 * height) - (6.8 * age));
 			} else {
-				bmr = Math.round(655 + (9.6 * (weight / mWeight_conversion)) + (1.8 * (height * mHeight_conversion)) - (4.7 * age));
+				bmr = Math.round(655 + (9.6 * weight) + (1.8 * height) - (4.7 * age));
 			}
 			mFld_bmr.setText(Long.toString(bmr));
 			long tdee = Math.round(bmr * mActivity);
