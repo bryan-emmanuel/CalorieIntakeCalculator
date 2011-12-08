@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ * Caloric Intake Calculator
+ * Copyright (C) 2009 Bryan Emmanuel
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *  
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *  
+ *  Bryan Emmanuel piusvelte@gmail.com
+-->
+<resources>
+    <string name="app_name">Caloric Intake Calculator</string>
+    <string name="lbl_gender">Gender</string>
+    <string name="lbl_age">Age</string>
+    <string name="lbl_weight">Weight (lb)</string>
+    <string name="lbl_height">Height (in)</string>
+    <string name="maintain_weight">Maintain weight</string>
+    <string name="moderately_active">Moderately active</string>
+    <string name="lbl_activity">Activity Level</string>
+    <string name="lbl_goal">Goal</string>
+    <string name="lbl_tdee">TDEE</string>
+    <string name="lbl_total_calories">Target Daily Calories</string>
+    <string name="lbl_chg_calories">Daily Caloric Change</string>
+    <string name="lbl_calculate">Calculate</string>
+</resources>
