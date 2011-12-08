@@ -28,6 +28,7 @@
     <string name="moderately_active">Moderately active</string>
     <string name="lbl_activity">Activity Level</string>
     <string name="lbl_goal">Goal</string>
+    <string name="lbl_bmr">BMR</string>
     <string name="lbl_tdee">TDEE</string>
     <string name="lbl_total_calories">Target Daily Calories</string>
     <string name="lbl_chg_calories">Daily Caloric Change</string>

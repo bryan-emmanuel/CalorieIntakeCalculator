@@ -72,6 +72,13 @@
 						android:gravity="right" />
 				</TableRow>
 				<TableRow>
+					<TextView android:text="@string/lbl_bmr" />
+					<EditText android:id="@+id/fld_bmr"
+					    android:text="0"
+						android:editable="false"
+						android:gravity="right" />
+				</TableRow>
+				<TableRow>
 					<TextView android:text="@string/lbl_tdee" />
 					<EditText android:id="@+id/fld_tdee"
 					    android:text="0"

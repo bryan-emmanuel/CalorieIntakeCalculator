@@ -41,6 +41,7 @@ public class UI extends Activity implements OnClickListener {
 	private double mActivity = 1.55;
 	private Button mBtn_goal;
 	private int mTarget = 0;
+	private EditText mFld_bmr;
 	private EditText mFld_tdee;
 	private EditText mFld_total_calories;
 	private EditText mFld_chg_calories;
@@ -60,6 +61,7 @@ public class UI extends Activity implements OnClickListener {
         mFld_height = (EditText) findViewById(R.id.fld_height);
         mBtn_activity = (Button) findViewById(R.id.btn_activity);
         mBtn_goal = (Button) findViewById(R.id.btn_goal);
+        mFld_bmr = (EditText) findViewById(R.id.fld_bmr);
         mFld_tdee = (EditText) findViewById(R.id.fld_tdee);
         mFld_total_calories = (EditText) findViewById(R.id.fld_total_calories);
         mFld_chg_calories = (EditText) findViewById(R.id.fld_chg_calories);
@@ -119,7 +121,7 @@ public class UI extends Activity implements OnClickListener {
 			})
 			.show();
 		} else if (v == mBtn_calculate) {
-			double bmr = 0;
+			long bmr = 0;
 			double age = 0;
 			double weight = 0;
 			double height = 0;
@@ -136,10 +138,11 @@ public class UI extends Activity implements OnClickListener {
 				height = Double.parseDouble(value);
 			}
 			if (mGender.equals("M")) {
-				bmr = 66 + (13.7 * (weight / mWeight_conversion)) + (5 * (height / mHeight_conversion)) - (6.8 * age);
+				bmr = Math.round(66 + (13.7 * (weight / mWeight_conversion)) + (5 * (height * mHeight_conversion)) - (6.8 * age));
 			} else {
-				bmr = 655 + (9.6 * (weight / mWeight_conversion)) + (1.8 * (height / mHeight_conversion)) - (4.7 * age);
+				bmr = Math.round(655 + (9.6 * (weight / mWeight_conversion)) + (1.8 * (height * mHeight_conversion)) - (4.7 * age));
 			}
+			mFld_bmr.setText(Long.toString(bmr));
 			long tdee = Math.round(bmr * mActivity);
 			mFld_tdee.setText(Long.toString(tdee));
 			long chg = Math.round(tdee * .2 * mTarget);
