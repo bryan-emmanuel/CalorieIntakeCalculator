@@ -19,7 +19,7 @@
  *  Bryan Emmanuel piusvelte@gmail.com
 -->
 <resources>
-    <string name="app_name">Caloric Intake Calculator</string>
+    <string name="app_name">Caloric Intake Calculator Pro</string>
     <string name="lbl_gender">Gender</string>
     <string name="lbl_age">Age</string>
     <string name="lbl_weight">Weight (lb)</string>
