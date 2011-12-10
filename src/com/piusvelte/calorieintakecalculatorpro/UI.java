@@ -1,4 +1,4 @@
-/* Caloric Intake Calculator
+/* Calorie Intake Calculator
  * Copyright (C) 2009 Bryan Emmanuel
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -16,14 +16,16 @@
  *  
  *  Bryan Emmanuel piusvelte@gmail.com
  */
-package com.piusvelte.caloricintakecalculatorpro;
+package com.piusvelte.calorieintakecalculatorpro;
 
-import com.piusvelte.caloricintakecalculatorpro.R;
+import com.piusvelte.calorieintakecalculatorpro.R;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -41,13 +43,16 @@ public class UI extends Activity implements OnClickListener {
 	private double mActivity = 1.55;
 	private Button mBtn_goal;
 	private int mTarget = 0;
+	private Button mBtn_bmr;
 	private EditText mFld_bmr;
+	private Button mBtn_tdee;
 	private EditText mFld_tdee;
 	private EditText mFld_total_calories;
 	private EditText mFld_chg_calories;
 	private Button mBtn_calculate;
 	private double mWeight_conversion = 2.2;
 	private double mHeight_conversion = 2.54;
+	private static final int ABOUT_ID = 1;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,7 +66,9 @@ public class UI extends Activity implements OnClickListener {
         mFld_height = (EditText) findViewById(R.id.fld_height);
         mBtn_activity = (Button) findViewById(R.id.btn_activity);
         mBtn_goal = (Button) findViewById(R.id.btn_goal);
+        mBtn_bmr = (Button) findViewById(R.id.btn_bmr);
         mFld_bmr = (EditText) findViewById(R.id.fld_bmr);
+        mBtn_tdee = (Button) findViewById(R.id.btn_tdee);
         mFld_tdee = (EditText) findViewById(R.id.fld_tdee);
         mFld_total_calories = (EditText) findViewById(R.id.fld_total_calories);
         mFld_chg_calories = (EditText) findViewById(R.id.fld_chg_calories);
@@ -71,8 +78,34 @@ public class UI extends Activity implements OnClickListener {
         mBtn_height.setOnClickListener(this);
         mBtn_activity.setOnClickListener(this);
         mBtn_goal.setOnClickListener(this);
+        mBtn_bmr.setOnClickListener(this);
+        mBtn_tdee.setOnClickListener(this);
         mBtn_calculate.setOnClickListener(this);
     }
+    
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		boolean result = super.onCreateOptionsMenu(menu);
+		menu.add(0, ABOUT_ID, 0, R.string.lbl_about).setIcon(android.R.drawable.ic_menu_more);
+		return result;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case ABOUT_ID:
+			(new AlertDialog.Builder(this))
+			.setMessage(R.string.about)
+			.setNegativeButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					dialog.cancel();
+				}
+			})
+			.show();
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
 
 	public void onClick(View v) {
 		if (v == mBtn_gender) {
@@ -120,6 +153,24 @@ public class UI extends Activity implements OnClickListener {
 				}
 			})
 			.show();
+		} else if (v == mBtn_bmr) {
+			(new AlertDialog.Builder(this))
+			.setMessage(R.string.def_bmr)
+			.setNegativeButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					dialog.cancel();
+				}
+			})
+			.show();
+		} else if (v == mBtn_tdee) {
+			(new AlertDialog.Builder(this))
+			.setMessage(R.string.def_tdee)
+			.setNegativeButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					dialog.cancel();
+				}
+			})
+			.show();
 		} else if (v == mBtn_calculate) {
 			long bmr = 0;
 			double age = 0;
@@ -135,7 +186,7 @@ public class UI extends Activity implements OnClickListener {
 			}
 			value = mFld_height.getText().toString();
 			if ((value != null) && (value.length() > 0)) {
-				height = Double.parseDouble(value) / mHeight_conversion;
+				height = Double.parseDouble(value) * mHeight_conversion;
 			}
 			if (mGender.equals("M")) {
 				bmr = Math.round(66 + (13.7 * weight) + (5 * height) - (6.8 * age));
