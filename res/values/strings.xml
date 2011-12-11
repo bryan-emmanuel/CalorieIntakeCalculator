@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
- * Caloric Intake Calculator
+ * Calorie Intake Calculator
  * Copyright (C) 2009 Bryan Emmanuel
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -19,7 +19,7 @@
  *  Bryan Emmanuel piusvelte@gmail.com
 -->
 <resources>
-    <string name="app_name">Caloric Intake Calculator Pro</string>
+    <string name="app_name">Calorie Intake Calculator Pro</string>
     <string name="lbl_gender">Gender</string>
     <string name="lbl_age">Age</string>
     <string name="lbl_weight">Weight (lb)</string>
@@ -29,8 +29,12 @@
     <string name="lbl_activity">Activity Level</string>
     <string name="lbl_goal">Goal</string>
     <string name="lbl_bmr">BMR</string>
+    <string name="def_bmr">Basal Metabolic Rate</string>
     <string name="lbl_tdee">TDEE</string>
+    <string name="def_tdee">Total Daily Energy Expenditure</string>
     <string name="lbl_total_calories">Target Daily Calories</string>
     <string name="lbl_chg_calories">Daily Caloric Change</string>
     <string name="lbl_calculate">Calculate</string>
+    <string name="lbl_about">About</string>
+    <string name="about">Calorie Intake Calculator\u000A\u000AEstimate daily calorie requirements based on the Harris-Benedict formula.\u000A\u000ACopyright (C) 2009 Bryan Emmanuel\u000A\u000AThis program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.\u000A\u000AThis program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.\u000A\u000AYou should have received a copy of the GNU General Public License along with this program.  If not, see \u003C\u000Ahttp://www.gnu.org/licenses/\u003E.\u000A\u000ABryan Emmanuel piusvelte@gmail.com</string>
 </resources>

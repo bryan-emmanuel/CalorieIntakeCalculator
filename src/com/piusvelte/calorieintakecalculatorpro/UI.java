@@ -24,6 +24,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,7 +33,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class UI extends Activity implements OnClickListener {
+public class UI extends Activity implements OnClickListener, TextWatcher {
 	private Button mBtn_gender;
 	private String mGender = "M";
 	private EditText mFld_age;
@@ -73,9 +75,12 @@ public class UI extends Activity implements OnClickListener {
         mFld_total_calories = (EditText) findViewById(R.id.fld_total_calories);
         mFld_chg_calories = (EditText) findViewById(R.id.fld_chg_calories);
         mBtn_calculate = (Button) findViewById(R.id.btn_calculate);
+        mFld_age.addTextChangedListener(this);
         mBtn_gender.setOnClickListener(this);
         mBtn_weight.setOnClickListener(this);
+        mFld_weight.addTextChangedListener(this);
         mBtn_height.setOnClickListener(this);
+        mFld_height.addTextChangedListener(this);
         mBtn_activity.setOnClickListener(this);
         mBtn_goal.setOnClickListener(this);
         mBtn_bmr.setOnClickListener(this);
@@ -114,6 +119,7 @@ public class UI extends Activity implements OnClickListener {
 				public void onClick(DialogInterface dialog, int which) {
 					mBtn_gender.setText(getResources().getStringArray(R.array.gender_entries)[which]);
 					mGender = getResources().getStringArray(R.array.gender_values)[which];
+					recalculate();
 				}
 			})
 			.show();
@@ -123,6 +129,7 @@ public class UI extends Activity implements OnClickListener {
 				public void onClick(DialogInterface dialog, int which) {
 					mBtn_weight.setText(getResources().getStringArray(R.array.weight_unit_entries)[which]);
 					mWeight_conversion = Double.parseDouble(getResources().getStringArray(R.array.weight_unit_values)[which]);
+					recalculate();
 				}
 			})
 			.show();
@@ -132,6 +139,7 @@ public class UI extends Activity implements OnClickListener {
 				public void onClick(DialogInterface dialog, int which) {
 					mBtn_height.setText(getResources().getStringArray(R.array.height_unit_entries)[which]);
 					mHeight_conversion = Double.parseDouble(getResources().getStringArray(R.array.height_unit_values)[which]);
+					recalculate();
 				}
 			})
 			.show();
@@ -141,6 +149,7 @@ public class UI extends Activity implements OnClickListener {
 				public void onClick(DialogInterface dialog, int which) {
 					mBtn_activity.setText(getResources().getStringArray(R.array.activity_entries)[which]);
 					mActivity = Double.parseDouble(getResources().getStringArray(R.array.activity_values)[which]);
+					recalculate();
 				}
 			})
 			.show();
@@ -150,6 +159,7 @@ public class UI extends Activity implements OnClickListener {
 				public void onClick(DialogInterface dialog, int which) {
 					mBtn_goal.setText(getResources().getStringArray(R.array.target_entries)[which]);
 					mTarget = Integer.parseInt(getResources().getStringArray(R.array.target_values)[which]);
+					recalculate();
 				}
 			})
 			.show();
@@ -172,33 +182,48 @@ public class UI extends Activity implements OnClickListener {
 			})
 			.show();
 		} else if (v == mBtn_calculate) {
-			long bmr = 0;
-			double age = 0;
-			double weight = 0;
-			double height = 0;
-			String value = mFld_age.getText().toString();
-			if ((value != null) && (value.length() > 0)) {
-				age = Double.parseDouble(value);
-			}
-			value = mFld_weight.getText().toString();
-			if ((value != null) && (value.length() > 0)) {
-				weight = Double.parseDouble(value) / mWeight_conversion;
-			}
-			value = mFld_height.getText().toString();
-			if ((value != null) && (value.length() > 0)) {
-				height = Double.parseDouble(value) * mHeight_conversion;
-			}
-			if (mGender.equals("M")) {
-				bmr = Math.round(66 + (13.7 * weight) + (5 * height) - (6.8 * age));
-			} else {
-				bmr = Math.round(655 + (9.6 * weight) + (1.8 * height) - (4.7 * age));
-			}
-			mFld_bmr.setText(Long.toString(bmr));
-			long tdee = Math.round(bmr * mActivity);
-			mFld_tdee.setText(Long.toString(tdee));
-			long chg = Math.round(tdee * .2 * mTarget);
-			mFld_total_calories.setText(Long.toString(tdee + chg));
-			mFld_chg_calories.setText(Long.toString(chg));
+			recalculate();
 		}
+	}
+	
+	private void recalculate() {
+		long bmr = 0;
+		double age = 0;
+		double weight = 0;
+		double height = 0;
+		String value = mFld_age.getText().toString();
+		if ((value != null) && (value.length() > 0)) {
+			age = Double.parseDouble(value);
+		}
+		value = mFld_weight.getText().toString();
+		if ((value != null) && (value.length() > 0)) {
+			weight = Double.parseDouble(value) / mWeight_conversion;
+		}
+		value = mFld_height.getText().toString();
+		if ((value != null) && (value.length() > 0)) {
+			height = Double.parseDouble(value) * mHeight_conversion;
+		}
+		if (mGender.equals("M")) {
+			bmr = Math.round(66 + (13.7 * weight) + (5 * height) - (6.8 * age));
+		} else {
+			bmr = Math.round(655 + (9.6 * weight) + (1.8 * height) - (4.7 * age));
+		}
+		mFld_bmr.setText(Long.toString(bmr));
+		long tdee = Math.round(bmr * mActivity);
+		mFld_tdee.setText(Long.toString(tdee));
+		long chg = Math.round(tdee * .2 * mTarget);
+		mFld_total_calories.setText(Long.toString(tdee + chg));
+		mFld_chg_calories.setText(Long.toString(chg));
+	}
+
+	public void afterTextChanged(Editable arg0) {
+		recalculate();
+	}
+
+	public void beforeTextChanged(CharSequence s, int start, int count,
+			int after) {
+	}
+
+	public void onTextChanged(CharSequence s, int start, int before, int count) {
 	}
 }
