@@ -29,10 +29,10 @@
 	</string-array>
 	<string-array name="activity_entries">
 		<item>Sedentary</item>
-		<item>Lightly active</item>
-		<item>Moderately active</item>
-		<item>Very active</item>
-		<item>Extremely active</item>
+		<item>Light</item>
+		<item>Moderate</item>
+		<item>Very</item>
+		<item>Extreme</item>
 	</string-array>
 	<string-array name="activity_values">
 		<item>1.2</item>
@@ -42,14 +42,18 @@
 		<item>1.9</item>
 	</string-array>
 	<string-array name="target_entries">
-		<item>Lose weight (-20\u0025)</item>
-		<item>Maintain weight</item>
-		<item>Gain weight (+20\u0025)</item>
+		<item>Lose (-20\u0025)</item>
+		<item>Lose (-15\u0025)</item>
+		<item>Maintain</item>
+		<item>Gain (+15\u0025)</item>
+		<item>Gain (+20\u0025)</item>
 	</string-array>
 	<string-array name="target_values">
-		<item>-1</item>
-		<item>0</item>
+		<item>0.8</item>
+		<item>0.85</item>
 		<item>1</item>
+		<item>1.15</item>
+		<item>1.2</item>
 	</string-array>
 	<string-array name="weight_unit_entries">
 		<item>Weight (lb)</item>

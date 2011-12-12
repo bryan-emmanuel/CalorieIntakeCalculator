@@ -24,10 +24,10 @@
     <string name="lbl_age">Age</string>
     <string name="lbl_weight">Weight (lb)</string>
     <string name="lbl_height">Height (in)</string>
-    <string name="maintain_weight">Maintain weight</string>
-    <string name="moderately_active">Moderately active</string>
+    <string name="maintain_weight">Maintain</string>
+    <string name="moderately_active">Moderate</string>
     <string name="lbl_activity">Activity Level</string>
-    <string name="lbl_goal">Goal</string>
+    <string name="lbl_goal">Weight goal</string>
     <string name="lbl_bmr">BMR</string>
     <string name="def_bmr">Basal Metabolic Rate</string>
     <string name="lbl_tdee">TDEE</string>

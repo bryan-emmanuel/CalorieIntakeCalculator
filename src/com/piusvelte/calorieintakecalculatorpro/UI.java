@@ -44,7 +44,7 @@ public class UI extends Activity implements OnClickListener, TextWatcher {
 	private Button mBtn_activity;
 	private double mActivity = 1.55;
 	private Button mBtn_goal;
-	private int mTarget = 0;
+	private double mTarget = 1;
 	private Button mBtn_bmr;
 	private EditText mFld_bmr;
 	private Button mBtn_tdee;
@@ -158,7 +158,7 @@ public class UI extends Activity implements OnClickListener, TextWatcher {
 			.setItems(R.array.target_entries, new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int which) {
 					mBtn_goal.setText(getResources().getStringArray(R.array.target_entries)[which]);
-					mTarget = Integer.parseInt(getResources().getStringArray(R.array.target_values)[which]);
+					mTarget = Double.parseDouble(getResources().getStringArray(R.array.target_values)[which]);
 					recalculate();
 				}
 			})
@@ -211,8 +211,9 @@ public class UI extends Activity implements OnClickListener, TextWatcher {
 		mFld_bmr.setText(Long.toString(bmr));
 		long tdee = Math.round(bmr * mActivity);
 		mFld_tdee.setText(Long.toString(tdee));
-		long chg = Math.round(tdee * .2 * mTarget);
-		mFld_total_calories.setText(Long.toString(tdee + chg));
+		long target = Math.round(tdee * mTarget);
+		long chg = target - tdee;
+		mFld_total_calories.setText(Long.toString(target));
 		mFld_chg_calories.setText(Long.toString(chg));
 	}
 
