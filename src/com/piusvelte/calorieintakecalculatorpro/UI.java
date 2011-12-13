@@ -18,13 +18,18 @@
  */
 package com.piusvelte.calorieintakecalculatorpro;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import com.piusvelte.calorieintakecalculatorpro.R;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -43,8 +48,9 @@ public class UI extends Activity implements OnClickListener, TextWatcher {
 	private EditText mFld_height;
 	private Button mBtn_activity;
 	private double mActivity = 1.55;
+	private Button mBtn_additional;
 	private Button mBtn_goal;
-	private double mTarget = 1;
+	private double mGoal = 1;
 	private Button mBtn_bmr;
 	private EditText mFld_bmr;
 	private Button mBtn_tdee;
@@ -55,39 +61,100 @@ public class UI extends Activity implements OnClickListener, TextWatcher {
 	private double mWeight_conversion = 2.2;
 	private double mHeight_conversion = 2.54;
 	private static final int ABOUT_ID = 1;
-	
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
-        mBtn_gender = (Button) findViewById(R.id.btn_gender);
-        mFld_age = (EditText) findViewById(R.id.fld_age);
-        mBtn_weight = (Button) findViewById(R.id.btn_weight);
-        mFld_weight = (EditText) findViewById(R.id.fld_weight);
-        mBtn_height = (Button) findViewById(R.id.btn_height);
-        mFld_height = (EditText) findViewById(R.id.fld_height);
-        mBtn_activity = (Button) findViewById(R.id.btn_activity);
-        mBtn_goal = (Button) findViewById(R.id.btn_goal);
-        mBtn_bmr = (Button) findViewById(R.id.btn_bmr);
-        mFld_bmr = (EditText) findViewById(R.id.fld_bmr);
-        mBtn_tdee = (Button) findViewById(R.id.btn_tdee);
-        mFld_tdee = (EditText) findViewById(R.id.fld_tdee);
-        mFld_total_calories = (EditText) findViewById(R.id.fld_total_calories);
-        mFld_chg_calories = (EditText) findViewById(R.id.fld_chg_calories);
-        mBtn_calculate = (Button) findViewById(R.id.btn_calculate);
-        mFld_age.addTextChangedListener(this);
-        mBtn_gender.setOnClickListener(this);
-        mBtn_weight.setOnClickListener(this);
-        mFld_weight.addTextChangedListener(this);
-        mBtn_height.setOnClickListener(this);
-        mFld_height.addTextChangedListener(this);
-        mBtn_activity.setOnClickListener(this);
-        mBtn_goal.setOnClickListener(this);
-        mBtn_bmr.setOnClickListener(this);
-        mBtn_tdee.setOnClickListener(this);
-        mBtn_calculate.setOnClickListener(this);
-    }
-    
+	private ArrayList<Double> mAdditional = new ArrayList<Double>();
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.main);
+		mBtn_gender = (Button) findViewById(R.id.btn_gender);
+		mFld_age = (EditText) findViewById(R.id.fld_age);
+		mBtn_weight = (Button) findViewById(R.id.btn_weight);
+		mFld_weight = (EditText) findViewById(R.id.fld_weight);
+		mBtn_height = (Button) findViewById(R.id.btn_height);
+		mFld_height = (EditText) findViewById(R.id.fld_height);
+		mBtn_activity = (Button) findViewById(R.id.btn_activity);
+		mBtn_additional = (Button) findViewById(R.id.btn_additional);
+		mBtn_goal = (Button) findViewById(R.id.btn_goal);
+		mBtn_bmr = (Button) findViewById(R.id.btn_bmr);
+		mFld_bmr = (EditText) findViewById(R.id.fld_bmr);
+		mBtn_tdee = (Button) findViewById(R.id.btn_tdee);
+		mFld_tdee = (EditText) findViewById(R.id.fld_tdee);
+		mFld_total_calories = (EditText) findViewById(R.id.fld_total_calories);
+		mFld_chg_calories = (EditText) findViewById(R.id.fld_chg_calories);
+		mBtn_calculate = (Button) findViewById(R.id.btn_calculate);
+		// restore last session
+		SharedPreferences sp = getSharedPreferences(getString(R.string.key_preferences), MODE_PRIVATE);
+		String age = sp.getString(getString(R.string.key_age), "0");
+		if (!age.equals("0")) {
+			mFld_age.setText(age);
+		}
+		mGender = sp.getString(getString(R.string.key_gender), "M");
+		if (!mGender.equals("M")) {
+			String genders[] = getResources().getStringArray(R.array.gender_values);
+			for (int i = 0, l = genders.length; i < l; i++) {
+				if (mGender.equals(genders[i])) {
+					mBtn_gender.setText(getResources().getStringArray(R.array.gender_entries)[i]);
+				}
+			}
+		}
+		String weight = sp.getString(getString(R.string.key_weight), "0");
+		if (!weight.equals("0")) {
+			mFld_weight.setText(weight);
+		}
+		String height = sp.getString(getString(R.string.key_height), "0");
+		if (!height.equals("0")) {
+			mFld_height.setText(height);
+		}
+		String activity = sp.getString(getString(R.string.key_activity), "1.55");
+		if (!activity.equals("1.55")) {
+			mActivity = Double.parseDouble(activity);
+			String activities[] = getResources().getStringArray(R.array.activity_values);
+			for (int i = 0, l = activities.length; i < l; i++) {
+				if (activity.equals(activities[i])) {
+					mBtn_activity.setText(getResources().getStringArray(R.array.activity_entries)[i]);
+				}
+			}
+		}
+		String goal = sp.getString(getString(R.string.key_goal), "1");
+		if (!goal.equals("1")) {
+			mGoal = Double.parseDouble(goal);
+			String goals[] = getResources().getStringArray(R.array.goal_values);
+			for (int i = 0, l = goals.length; i < l; i++) {
+				if (goal.equals(goals[i])) {
+					mBtn_goal.setText(getResources().getStringArray(R.array.goal_entries)[i]);
+				}
+			}
+		}
+		recalculate();
+		mFld_age.addTextChangedListener(this);
+		mBtn_gender.setOnClickListener(this);
+		mBtn_weight.setOnClickListener(this);
+		mFld_weight.addTextChangedListener(this);
+		mBtn_height.setOnClickListener(this);
+		mFld_height.addTextChangedListener(this);
+		mBtn_activity.setOnClickListener(this);
+		mBtn_additional.setOnClickListener(this);
+		mBtn_goal.setOnClickListener(this);
+		mBtn_bmr.setOnClickListener(this);
+		mBtn_tdee.setOnClickListener(this);
+		mBtn_calculate.setOnClickListener(this);
+	}
+
+	@Override
+	protected void onPause() {
+		SharedPreferences sp = getSharedPreferences(getString(R.string.key_preferences), MODE_PRIVATE);
+		SharedPreferences.Editor spe = sp.edit();
+		spe.putString(getString(R.string.key_age), Double.toString(getFieldValue(mFld_age)));
+		spe.putString(getString(R.string.key_gender), mGender);
+		spe.putString(getString(R.string.key_weight), Double.toString(getFieldValue(mFld_weight)));
+		spe.putString(getString(R.string.key_height), Double.toString(getFieldValue(mFld_height)));
+		spe.putString(getString(R.string.key_activity), Double.toString(mActivity));
+		spe.putString(getString(R.string.key_goal), Double.toString(mGoal));
+		spe.commit();
+		super.onPause();
+	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		boolean result = super.onCreateOptionsMenu(menu);
@@ -153,12 +220,42 @@ public class UI extends Activity implements OnClickListener, TextWatcher {
 				}
 			})
 			.show();
+		} else if (v == mBtn_additional) {
+			// select an activity
+			(new AlertDialog.Builder(this))
+			.setItems(R.array.activities_entries, new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					// launch form for duration
+					final double met = Double.parseDouble(getResources().getStringArray(R.array.activities_values)[which]);
+					if (met > 0) {
+						final EditText fld_duration = new EditText(UI.this);
+						fld_duration.setInputType(InputType.TYPE_CLASS_NUMBER);
+						(new AlertDialog.Builder(UI.this))
+						.setTitle(R.string.lbl_duration)
+						.setView(fld_duration)
+						.setPositiveButton(R.string.lbl_add, new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int which) {
+								double duration = getFieldValue(fld_duration);
+								if (duration > 0) {
+									mAdditional.add(duration * met);
+								}
+								recalculate();
+							}
+						})
+						.show();
+					} else {
+						mAdditional.clear();
+						recalculate();
+					}
+				}
+			})
+			.show();
 		} else if (v == mBtn_goal) {
 			(new AlertDialog.Builder(this))
-			.setItems(R.array.target_entries, new DialogInterface.OnClickListener() {
+			.setItems(R.array.goal_entries, new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int which) {
-					mBtn_goal.setText(getResources().getStringArray(R.array.target_entries)[which]);
-					mTarget = Double.parseDouble(getResources().getStringArray(R.array.target_values)[which]);
+					mBtn_goal.setText(getResources().getStringArray(R.array.goal_entries)[which]);
+					mGoal = Double.parseDouble(getResources().getStringArray(R.array.goal_values)[which]);
 					recalculate();
 				}
 			})
@@ -185,23 +282,26 @@ public class UI extends Activity implements OnClickListener, TextWatcher {
 			recalculate();
 		}
 	}
-	
+
+	private double getFieldValue(EditText fld) {
+		double value = 0;
+		String value_str = fld.getText().toString();
+		if ((value_str != null) && (value_str.length() > 0)) {
+			value = Double.parseDouble(value_str);
+		}
+		return value;
+	}
+
 	private void recalculate() {
 		long bmr = 0;
-		double age = 0;
-		double weight = 0;
-		double height = 0;
-		String value = mFld_age.getText().toString();
-		if ((value != null) && (value.length() > 0)) {
-			age = Double.parseDouble(value);
+		double age = getFieldValue(mFld_age);
+		double weight = getFieldValue(mFld_weight);
+		if (weight > 0) {
+			weight = weight / mWeight_conversion;
 		}
-		value = mFld_weight.getText().toString();
-		if ((value != null) && (value.length() > 0)) {
-			weight = Double.parseDouble(value) / mWeight_conversion;
-		}
-		value = mFld_height.getText().toString();
-		if ((value != null) && (value.length() > 0)) {
-			height = Double.parseDouble(value) * mHeight_conversion;
+		double height = getFieldValue(mFld_height);
+		if (height > 0) {
+			height = height * mHeight_conversion;
 		}
 		if (mGender.equals("M")) {
 			bmr = Math.round(66 + (13.7 * weight) + (5 * height) - (6.8 * age));
@@ -210,8 +310,17 @@ public class UI extends Activity implements OnClickListener, TextWatcher {
 		}
 		mFld_bmr.setText(Long.toString(bmr));
 		long tdee = Math.round(bmr * mActivity);
+		long additional = 0;
+		if (!mAdditional.isEmpty()) {
+			Iterator<Double> itr = mAdditional.iterator();
+			while (itr.hasNext()) {
+				additional += Math.round(itr.next() * 3.5 * weight / 200);
+			}
+			tdee += additional;
+		}
+		mBtn_additional.setText(Long.toString(additional));
 		mFld_tdee.setText(Long.toString(tdee));
-		long target = Math.round(tdee * mTarget);
+		long target = Math.round(tdee * mGoal);
 		long chg = target - tdee;
 		mFld_total_calories.setText(Long.toString(target));
 		mFld_chg_calories.setText(Long.toString(chg));
@@ -221,8 +330,7 @@ public class UI extends Activity implements OnClickListener, TextWatcher {
 		recalculate();
 	}
 
-	public void beforeTextChanged(CharSequence s, int start, int count,
-			int after) {
+	public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 	}
 
 	public void onTextChanged(CharSequence s, int start, int before, int count) {

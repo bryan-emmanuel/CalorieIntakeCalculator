@@ -56,13 +56,18 @@
 					<EditText android:id="@+id/fld_height"
 					    android:inputType="number"
 					    android:hint="0"
-						android:textStyle="bold"
 						android:gravity="right" />
 				</TableRow>
 				<TableRow>
 					<TextView android:text="@string/lbl_activity" />
 					<Button android:id="@+id/btn_activity"
 					    android:text="@string/moderately_active"
+						android:gravity="right" />
+				</TableRow>
+				<TableRow>
+					<TextView android:text="@string/lbl_additional" />
+					<Button android:id="@+id/btn_additional"
+					    android:text="0"
 						android:gravity="right" />
 				</TableRow>
 				<TableRow>
