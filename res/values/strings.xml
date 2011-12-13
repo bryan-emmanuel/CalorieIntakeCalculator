@@ -21,6 +21,7 @@
 <resources>
     <string name="app_name">Calorie Intake Calculator Pro</string>
     <string name="lbl_gender">Gender</string>
+    <string name="male">Male</string>
     <string name="lbl_age">Age</string>
     <string name="lbl_weight">Weight (lb)</string>
     <string name="lbl_height">Height (in)</string>

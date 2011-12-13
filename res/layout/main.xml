@@ -32,8 +32,7 @@
 				<TableRow>
 					<TextView android:text="@string/lbl_gender" />
 					<Button android:id="@+id/btn_gender"
-					    android:text="Male"
-						android:gravity="right" />
+					    android:text="@string/male" />
 				</TableRow>
 				<TableRow>
 					<TextView android:text="@string/lbl_age" />
@@ -61,8 +60,7 @@
 				<TableRow>
 					<TextView android:text="@string/lbl_activity" />
 					<Button android:id="@+id/btn_activity"
-					    android:text="@string/moderately_active"
-						android:gravity="right" />
+					    android:text="@string/moderately_active" />
 				</TableRow>
 				<TableRow>
 					<TextView android:text="@string/lbl_additional" />
@@ -73,8 +71,7 @@
 				<TableRow>
 					<TextView android:text="@string/lbl_goal" />
 					<Button android:id="@+id/btn_goal"
-					    android:text="@string/maintain_weight"
-						android:gravity="right" />
+					    android:text="@string/maintain_weight" />
 				</TableRow>
 				<TableRow>
 					<Button android:text="@string/lbl_bmr" android:id="@+id/btn_bmr" />
