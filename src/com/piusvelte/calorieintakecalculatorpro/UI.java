@@ -95,6 +95,7 @@ public class UI extends Activity implements OnClickListener, TextWatcher {
 			for (int i = 0, l = genders.length; i < l; i++) {
 				if (mGender.equals(genders[i])) {
 					mBtn_gender.setText(getResources().getStringArray(R.array.gender_entries)[i]);
+					break;
 				}
 			}
 		}
@@ -113,6 +114,7 @@ public class UI extends Activity implements OnClickListener, TextWatcher {
 			for (int i = 0, l = activities.length; i < l; i++) {
 				if (activity.equals(activities[i])) {
 					mBtn_activity.setText(getResources().getStringArray(R.array.activity_entries)[i]);
+					break;
 				}
 			}
 		}
@@ -123,6 +125,29 @@ public class UI extends Activity implements OnClickListener, TextWatcher {
 			for (int i = 0, l = goals.length; i < l; i++) {
 				if (goal.equals(goals[i])) {
 					mBtn_goal.setText(getResources().getStringArray(R.array.goal_entries)[i]);
+					break;
+				}
+			}
+		}
+		String weight_conversion = sp.getString(getString(R.string.key_weight_unit), "2.2");
+		if (!weight_conversion.equals("2.2")) {
+			mWeight_conversion = Double.parseDouble(weight_conversion);
+			String weight_conversions[] = getResources().getStringArray(R.array.weight_unit_values);
+			for (int i = 0, l = weight_conversions.length; i < l; i++) {
+				if (weight_conversion.equals(weight_conversions[i])) {
+					mBtn_weight.setText(getResources().getStringArray(R.array.weight_unit_entries)[i]);
+					break;
+				}
+			}
+		}
+		String height_conversion = sp.getString(getString(R.string.key_height_unit), "2.54");
+		if (!height_conversion.equals("2.2")) {
+			mHeight_conversion = Double.parseDouble(height_conversion);
+			String height_conversions[] = getResources().getStringArray(R.array.height_unit_values);
+			for (int i = 0, l = height_conversions.length; i < l; i++) {
+				if (height_conversion.equals(height_conversions[i])) {
+					mBtn_height.setText(getResources().getStringArray(R.array.height_unit_entries)[i]);
+					break;
 				}
 			}
 		}

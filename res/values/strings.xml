@@ -47,5 +47,7 @@
     <string name="key_height">height</string>
     <string name="key_goal">goal</string>
     <string name="key_activity">activity</string>
+    <string name="key_weight_unit">weight_unit</string>
+    <string name="key_height_unit">height_unit</string>
     <string name="about">Calorie Intake Calculator\u000A\u000AEstimate daily calorie requirements based on the Harris-Benedict formula.\u000A\u000ACopyright (C) 2009 Bryan Emmanuel\u000A\u000AThis program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.\u000A\u000AThis program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.\u000A\u000AYou should have received a copy of the GNU General Public License along with this program.  If not, see \u003C\u000Ahttp://www.gnu.org/licenses/\u003E.\u000A\u000ABryan Emmanuel piusvelte@gmail.com</string>
 </resources>
