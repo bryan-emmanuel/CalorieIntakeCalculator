@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ * Calorie Intake Calculator
+ * Copyright (C) 2009 Bryan Emmanuel
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *  
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *  
+ *  Bryan Emmanuel piusvelte@gmail.com
+-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res/com.piusvelte.calorieintakecalculatorpro"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent" android:textSize="16dip">
+    
+	<LinearLayout android:id="@+id/ad" android:layout_width="fill_parent"
+		android:layout_height="wrap_content" />
+	
+	<ScrollView android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_below="@id/ad">
+		<LinearLayout android:layout_width="fill_parent"
+			android:layout_height="fill_parent" android:orientation="vertical">
+			<TableLayout
+				android:layout_width="fill_parent" android:layout_height="wrap_content"
+				android:padding="12dip"
+				android:stretchColumns="0">
+				<TableRow>
+					<TextView android:text="@string/lbl_gender" />
+					<Button android:id="@+id/btn_gender"
+					    android:text="@string/male" />
+				</TableRow>
+				<TableRow>
+					<TextView android:text="@string/lbl_age" />
+					<EditText android:id="@+id/fld_age"
+					    android:inputType="number"
+					    android:hint="0"
+						android:gravity="right" />
+				</TableRow>
+				<TableRow>
+					<Button android:id="@+id/btn_weight"
+					    android:text="@string/lbl_weight" />
+					<EditText android:id="@+id/fld_weight"
+					    android:inputType="number"
+					    android:hint="0"
+						android:gravity="right" />
+				</TableRow>
+				<TableRow>
+					<Button android:id="@+id/btn_height"
+					    android:text="@string/lbl_height" />
+					<EditText android:id="@+id/fld_height"
+					    android:inputType="number"
+					    android:hint="0"
+						android:gravity="right" />
+				</TableRow>
+				<TableRow>
+					<TextView android:text="@string/lbl_activity" />
+					<Button android:id="@+id/btn_activity"
+					    android:text="@string/moderately_active" />
+				</TableRow>
+				<TableRow>
+					<TextView android:text="@string/lbl_additional" />
+					<Button android:id="@+id/btn_additional"
+					    android:text="0"
+						android:gravity="right" />
+				</TableRow>
+				<TableRow>
+					<TextView android:text="@string/lbl_goal" />
+					<Button android:id="@+id/btn_goal"
+					    android:text="@string/maintain_weight" />
+				</TableRow>
+				<TableRow>
+					<Button android:text="@string/lbl_bmr" android:id="@+id/btn_bmr" />
+					<EditText android:id="@+id/fld_bmr"
+					    android:text="0"
+						android:editable="false"
+						android:gravity="right" />
+				</TableRow>
+				<TableRow>
+					<Button android:text="@string/lbl_tdee" android:id="@+id/btn_tdee" />
+					<EditText android:id="@+id/fld_tdee"
+					    android:text="0"
+						android:editable="false"
+						android:gravity="right" />
+				</TableRow>
+				<TableRow>
+					<TextView android:text="@string/lbl_total_calories" />
+					<EditText android:id="@+id/fld_total_calories"
+					    android:text="0"
+						android:editable="false"
+						android:gravity="right" />
+				</TableRow>
+				<TableRow>
+					<TextView android:text="@string/lbl_chg_calories" />
+					<EditText android:id="@+id/fld_chg_calories"
+					    android:text="0"
+						android:editable="false"
+						android:gravity="right" />
+				</TableRow>
+			</TableLayout>
+			<Button android:id="@+id/btn_calculate" android:text="@string/lbl_calculate"
+				android:layout_width="fill_parent" android:layout_height="wrap_content" />
+		</LinearLayout>
+	</ScrollView>
+</RelativeLayout>
